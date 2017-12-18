@@ -1,6 +1,6 @@
-!# /bin/bash
+#! /bin/bash
 
-interface = $1
+interface=$1
 
 # Create a bridge on host:
 

@@ -1,4 +1,4 @@
-!# /bin/bash
+#! /bin/bash
 
 # setup hugepage
 sysctl vm.nr_hugepages=600
