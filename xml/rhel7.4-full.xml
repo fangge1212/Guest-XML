@@ -65,7 +65,7 @@
   <numatune>
     <memory mode='strict' nodeset='0'/>
     <memnode cellid='0' mode='interleave' nodeset='0'/>
-    <memnode cellid='1' mode='interleave' nodeset='0'/>
+    <memnode cellid='1' mode='strict' nodeset='0'/>
   </numatune>
   <resource>
     <partition>/machine</partition>
