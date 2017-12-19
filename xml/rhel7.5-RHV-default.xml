@@ -113,8 +113,16 @@
     </channel>
     <input type='mouse' bus='ps2'/>
     <input type='keyboard' bus='ps2'/>
-    <graphics type='spice' autoport='yes' listen='0.0.0.0'>
-      <listen type='address' address='0.0.0.0'/>
+    <graphics type='spice' autoport='yes' defaultMode='secure'>
+      <listen type='network' network='vdsm-ovirtmgmt'/>
+      <channel name='main' mode='secure'/>
+      <channel name='display' mode='secure'/>
+      <channel name='inputs' mode='secure'/>
+      <channel name='cursor' mode='secure'/>
+      <channel name='playback' mode='secure'/>
+      <channel name='record' mode='secure'/>
+      <channel name='smartcard' mode='secure'/>
+      <channel name='usbredir' mode='secure'/>
     </graphics>
     <sound model='ich6'>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
