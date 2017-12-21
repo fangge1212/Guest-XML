@@ -24,7 +24,7 @@
     <allocation mode='immediate'/>
     <nosharepages/>
   </memoryBacking>
-  <vcpu placement='static' current='1' cpuset='0-3'>16</vcpu>
+  <vcpu placement='static' current='16' cpuset='0-3'>16</vcpu>
   <iothreads>4</iothreads>
   <iothreadids>
     <iothread id='1'/>
