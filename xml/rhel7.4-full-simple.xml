@@ -68,7 +68,7 @@
     <partition>/machine</partition>
   </resource>
   <os>
-    <type arch='x86_64' machine='pc-i440fx-rhel7.5.0'>hvm</type>
+    <type arch='x86_64' machine='pc-i440fx-rhel7.4.0'>hvm</type>
     <loader readonly='yes' type='rom'>/usr/share/seabios/bios.bin</loader>
     <boot dev='hd'/>
     <boot dev='cdrom'/>
@@ -244,15 +244,11 @@
     </smartcard>
     <serial type='pty'>
       <log file='/var/log/libvirt/qemu/rhel7.3-serial0.log' append='off'/>
-      <target type='isa-serial' port='0'>
-        <model name='isa-serial'/>
-      </target>
+      <target type='isa-serial' port='0'/>
     </serial>
     <serial type='file'>
       <source path='/var/log/libvirt/qemu/rhel7.3-serial1.log' append='on'/>
-      <target type='isa-serial' port='1'>
-        <model name='isa-serial'/>
-      </target>
+      <target type='isa-serial' port='1'/>
     </serial>
     <console type='pty'>
       <log file='/var/log/libvirt/qemu/rhel7.3-serial0.log' append='off'/>
