@@ -95,8 +95,6 @@
   <cpu mode='custom' match='exact' check='full'>
     <model fallback='forbid'>Penryn</model>
     <topology sockets='2' cores='4' threads='2'/>
-    <feature policy='disable' name='hypervisor'/>
-    <feature policy='disable' name='x2apic'/>
     <feature policy='require' name='vme'/>
     <numa>
       <cell id='0' cpus='0-7' memory=524288 unit='KiB' memAccess='shared'/>
@@ -307,16 +305,8 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
     </sound>
     <video>
-      <model type='qxl' ram='65536' vram='65536' vram64='131072' vgamem='16384' heads='1' primary='yes'/>
+      <model type='qxl' ram='65536' vram='65536' vram64='131072' vgamem='16384' heads='3' primary='yes'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
-    </video>
-    <video>
-      <model type='qxl' ram='65536' vram='65536' vgamem='16384' heads='1'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
-    </video>
-    <video>
-      <model type='qxl' ram='65536' vram='65536' vgamem='16384' heads='1'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x0b' function='0x0'/>
     </video>
     <hostdev mode='subsystem' type='usb' managed='no'>
       <source startupPolicy='optional'>
