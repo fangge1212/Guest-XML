@@ -1,0 +1,71 @@
+This is a env setup guide for full xml.
+
+1. Hugepage
+# sysctl vm.nr_hugepages=2500
+
+
+2. Spice tls env
+
+
+3. Update default network setting
+3-1.Add following elements in "default" network:
+# virsh net-edit default
+  <bandwidth>
+	<inbound average='1000' peak='5000' burst='5120'/>
+	<outbound average='128' peak='256' burst='256'/>
+  </bandwidth>
+
+3-2. Destroy and start "default" network
+# virsh net-destroy default; virsh net-start default
+
+
+4. Create a network bridge:
+You can use below shell script(Note: replace MAIN_CONN and INTERFACE name with the value in your env)
+# cat create-br.sh
+#!/bin/bash
+
+set -xe
+export MAIN_CONN="System eno3"
+export INTERFACE=eno3
+nmcli c delete "$MAIN_CONN"
+nmcli c add type bridge ifname br0 con-name br0 stp off autoconnect yes
+nmcli c add type bridge-slave ifname "$INTERFACE" con-name "$MAIN_CONN" master br0 autoconnect yes
+systemctl restart NetworkManager
+
+
+To delete the bridge after testing, use below script:
+# cat del-br.sh
+#!/bin/bash
+
+set -xe
+
+export MAIN_CONN="System eno3"
+export INTERFACE=eno3
+
+nmcli c delete br0
+nmcli c delete  "$MAIN_CONN"
+nmcli c add type ethernet ifname  "$INTERFACE" con-name  "$MAIN_CONN" autoconnect yes
+systemctl restart NetworkManager
+
+
+5.Create a host bridge network with the bridge created in last step
+# cat host-bridge.xml
+<network>
+  <name>host-bridge</name>
+  <forward mode="bridge"/>
+  <bridge name="br0"/>
+</network>
+
+# virsh net-create host-bridge.xml
+
+
+6. Create backend file for nvdimm device
+# truncate -s 512M /tmp/nvdimm
+
+
+7. Create slice disk
+# qemu-img create /nfs/fjin/slice.disk -f raw 300M -o preallocation=full
+
+
+8. Install vtpm related packages
+# yum install swtpm  swtpm-tools
