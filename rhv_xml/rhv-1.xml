@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain xmlns:ovirt-tune="http://ovirt.org/vm/tune/1.0" xmlns:ovirt-vm="http://ovirt.org/vm/1.0" type="kvm">
+   <name>UIL-52Clone</name>
+   <uuid>3093aa31-4936-498f-9e2f-b88c8a2d3f22</uuid>
+   <memory>10485760</memory>
+   <currentMemory>10485760</currentMemory>
+   <vcpu current="4">16</vcpu>
+   <sysinfo type="smbios">
+      <system>
+         <entry name="manufacturer">Red Hat</entry>
+         <entry name="product">OS-NAME:</entry>
+         <entry name="version">OS-VERSION:</entry>
+         <entry name="serial">HOST-SERIAL:</entry>
+         <entry name="uuid">3093aa31-4936-498f-9e2f-b88c8a2d3f22</entry>
+      </system>
+   </sysinfo>
+   <clock offset="variable" adjustment="-25200">
+      <timer name="hypervclock" present="yes" />
+      <timer name="rtc" tickpolicy="catchup" />
+      <timer name="pit" tickpolicy="delay" />
+      <timer name="hpet" present="no" />
+   </clock>
+   <features>
+      <acpi />
+      <hyperv>
+         <relaxed state="on" />
+         <vapic state="on" />
+         <spinlocks state="on" retries="8191" />
+         <synic state="on" />
+         <stimer state="on" />
+      </hyperv>
+   </features>
+   <cpu match="exact">
+      <model>SandyBridge</model>
+      <topology cores="1" threads="1" sockets="16" />
+      <numa>
+         <cell id="0" cpus="0,1,2,3" memory="10485760" />
+      </numa>
+   </cpu>
+   <cputune />
+   <devices>
+      <input type="tablet" bus="usb" />
+      <channel type="unix">
+         <target type="virtio" name="ovirt-guest-agent.0" />
+         <source mode="bind" path="/var/lib/libvirt/qemu/channels/3093aa31-4936-498f-9e2f-b88c8a2d3f22.ovirt-guest-agent.0" />
+      </channel>
+      <channel type="unix">
+         <target type="virtio" name="org.qemu.guest_agent.0" />
+         <source mode="bind" path="/var/lib/libvirt/qemu/channels/3093aa31-4936-498f-9e2f-b88c8a2d3f22.org.qemu.guest_agent.0" />
+      </channel>
+      <controller type="scsi" model="virtio-scsi" index="0">
+         <alias name="ua-1cfe8330-98e0-4abb-95ce-8a59efca2bc4" />
+         <address bus="0x00" domain="0x0000" function="0x0" slot="0x04" type="pci" />
+      </controller>
+      <controller type="usb" model="piix3-uhci" index="0">
+         <address bus="0x00" domain="0x0000" function="0x2" slot="0x01" type="pci" />
+      </controller>
+      <memballoon model="virtio">
+         <stats period="5" />
+         <alias name="ua-3e886af9-8b70-4e13-9d3b-43a31e48406d" />
+         <address bus="0x00" domain="0x0000" function="0x0" slot="0x06" type="pci" />
+      </memballoon>
+      <controller type="virtio-serial" index="0" ports="16">
+         <alias name="ua-6059fc87-7057-4cbb-bb16-9c5e31862f87" />
+         <address bus="0x00" domain="0x0000" function="0x0" slot="0x05" type="pci" />
+      </controller>
+      <rng model="virtio">
+         <backend model="random">/dev/urandom</backend>
+         <alias name="ua-8ab006c1-74a7-49f8-bbeb-04bd54536c3c" />
+      </rng>
+      <graphics type="vnc" port="-1" autoport="yes" passwd="*****" passwdValidTo="1970-01-01T00:00:01" keymap="en-us">
+         <listen type="network" network="vdsm-ovirtmgmt" />
+      </graphics>
+      <video>
+         <model type="vga" vram="16384" heads="1" />
+         <alias name="ua-ce2c4c3a-f06f-418e-9d23-0f6f6860e193" />
+         <address bus="0x00" domain="0x0000" function="0x0" slot="0x02" type="pci" />
+      </video>
+      <controller type="ide">
+         <address bus="0x00" domain="0x0000" function="0x1" slot="0x01" type="pci" />
+      </controller>
+      <interface type="bridge">
+         <model type="virtio" />
+         <link state="up" />
+         <source bridge="ovirtmgmt" />
+         <driver queues="4" name="vhost" />
+         <alias name="ua-655ac268-86ef-4cc8-bf8a-7d93fe223fd9" />
+         <address bus="0x00" domain="0x0000" function="0x0" slot="0x03" type="pci" />
+         <mac address="00:1a:4a:16:02:ba" />
+         <mtu size="1500" />
+         <filterref filter="vdsm-no-mac-spoofing" />
+         <bandwidth />
+      </interface>
+      <disk type="file" device="cdrom" snapshot="no">
+         <driver name="qemu" type="raw" error_policy="report" />
+         <source file="/rhev/data-center/mnt/usidc.ultramain.com:_exports_redhatiso/e7eb45ee-3b00-4d7b-94b6-964660bdc3e6/images/11111111-1111-1111-1111-111111111111/Win2012R2DataCenter.ISO" startupPolicy="optional">
+            <seclabel model="dac" type="none" relabel="no" />
+         </source>
+         <target dev="hdc" bus="ide" />
+         <readonly />
+         <alias name="ua-bd2240b2-7ee2-4c38-9623-19560eaf051d" />
+         <address bus="1" controller="0" unit="0" type="drive" target="0" />
+         <boot order="1" />
+      </disk>
+      <disk snapshot="no" type="block" device="disk">
+         <target dev="hda" bus="ide" />
+         <source dev="/rhev/data-center/mnt/blockSD/6db10e9d-ec5c-4190-9549-a07bd5a4b759/images/c250073c-b022-4c61-a956-691b5e473360/4f59275c-ce80-4a40-996a-ae4b4a352c26">
+            <seclabel model="dac" type="none" relabel="no" />
+         </source>
+         <driver name="qemu" io="native" type="raw" error_policy="stop" cache="none" />
+         <alias name="ua-c250073c-b022-4c61-a956-691b5e473360" />
+         <address bus="0" controller="0" unit="0" type="drive" target="0" />
+         <boot order="2" />
+         <serial>c250073c-b022-4c61-a956-691b5e473360</serial>
+      </disk>
+      <disk snapshot="no" type="block" device="disk">
+         <target dev="hdb" bus="ide" />
+         <source dev="/rhev/data-center/mnt/blockSD/6db10e9d-ec5c-4190-9549-a07bd5a4b759/images/188caf90-aa4c-4fde-9301-2d13a4b752ea/5ece4100-07a8-494f-9a9a-ac71269bfba2">
+            <seclabel model="dac" type="none" relabel="no" />
+         </source>
+         <driver name="qemu" io="native" type="raw" error_policy="stop" cache="none" />
+         <alias name="ua-188caf90-aa4c-4fde-9301-2d13a4b752ea" />
+         <address bus="0" controller="0" unit="1" type="drive" target="0" />
+         <serial>188caf90-aa4c-4fde-9301-2d13a4b752ea</serial>
+      </disk>
+   </devices>
+   <pm>
+      <suspend-to-disk enabled="no" />
+      <suspend-to-mem enabled="no" />
+   </pm>
+   <os>
+      <type arch="x86_64" machine="pc-i440fx-rhel7.6.0">hvm</type>
+      <smbios mode="sysinfo" />
+   </os>
+   <metadata>
+      <ovirt-tune:qos />
+      <ovirt-vm:vm>
+         <ovirt-vm:minGuaranteedMemoryMb type="int">10240</ovirt-vm:minGuaranteedMemoryMb>
+         <ovirt-vm:clusterVersion>4.3</ovirt-vm:clusterVersion>
+         <ovirt-vm:custom />
+         <ovirt-vm:device mac_address="00:1a:4a:16:02:ba">
+            <ovirt-vm:custom />
+         </ovirt-vm:device>
+         <ovirt-vm:device devtype="disk" name="hda">
+            <ovirt-vm:poolID>5af9a296-02d9-02f7-024a-000000000138</ovirt-vm:poolID>
+            <ovirt-vm:volumeID>4f59275c-ce80-4a40-996a-ae4b4a352c26</ovirt-vm:volumeID>
+            <ovirt-vm:imageID>c250073c-b022-4c61-a956-691b5e473360</ovirt-vm:imageID>
+            <ovirt-vm:domainID>6db10e9d-ec5c-4190-9549-a07bd5a4b759</ovirt-vm:domainID>
+         </ovirt-vm:device>
+         <ovirt-vm:device devtype="disk" name="hdb">
+            <ovirt-vm:poolID>5af9a296-02d9-02f7-024a-000000000138</ovirt-vm:poolID>
+            <ovirt-vm:volumeID>5ece4100-07a8-494f-9a9a-ac71269bfba2</ovirt-vm:volumeID>
+            <ovirt-vm:imageID>188caf90-aa4c-4fde-9301-2d13a4b752ea</ovirt-vm:imageID>
+            <ovirt-vm:domainID>6db10e9d-ec5c-4190-9549-a07bd5a4b759</ovirt-vm:domainID>
+         </ovirt-vm:device>
+         <ovirt-vm:launchPaused>false</ovirt-vm:launchPaused>
+         <ovirt-vm:resumeBehavior>auto_resume</ovirt-vm:resumeBehavior>
+      </ovirt-vm:vm>
+   </metadata>
+</domain>
