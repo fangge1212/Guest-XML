@@ -20,7 +20,8 @@ This is a env setup guide for full xml.
 
 
 4. Create a network bridge:
-You can use below shell script(Note: replace MAIN_CONN and INTERFACE name with the value in your env)
+You can use below shell script
+Note: replace MAIN_CONN and INTERFACE name with the value in your env(by "nmcli c")
 # cat create-br.sh
 #!/bin/bash
 
